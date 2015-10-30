@@ -13,8 +13,11 @@
 class PointList {
 public:
 	std::vector<Point> points;
+	float energy;
 	PointList();
 	void add(Point p);
+	float getEnergy();
+	void shake();
 	virtual ~PointList();
 };
 
