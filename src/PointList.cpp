@@ -6,6 +6,7 @@
  */
 
 #include "PointList.h"
+#include <algorithm>
 
 PointList::PointList() {
 	this->points.clear();
@@ -32,5 +33,6 @@ float PointList::getEnergy() {
 }
 
 void PointList::shake() {
+	pointsNew = points;
 
 }

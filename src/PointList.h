@@ -13,6 +13,7 @@
 class PointList {
 public:
 	std::vector<Point> points;
+	std::vector<Point> pointsNew;
 	float energy;
 	PointList();
 	void add(Point p);
