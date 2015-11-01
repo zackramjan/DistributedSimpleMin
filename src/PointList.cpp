@@ -16,42 +16,44 @@ using namespace std;
 
 PointList::PointList() {
 	this->points.clear();
-	energy = 0.0;
+	totalEnergy = 0.0;
 	srand (time(NULL));
+	moveRangeFrom = MOVERANGEFROM;
+	moveRangeTo = MOVERANGETO;
 }
 
 //add a point to the list
 void PointList::add(Point p) {
 	this->points.push_back(p);
 	calcEnergy();
-
 }
 
 void PointList::trial() {
 	PointList t;
 	t.points = points;
 	t.shake();
-	if(t.energy < energy)
+	if(t.totalEnergy < totalEnergy)
 	{
 		this->points = t.points;
-		this->energy = t.energy;
+		this->totalEnergy = t.totalEnergy;
 	}
 }
 
-PointList::~PointList() {
+PointList::~PointList() {}
 
-}
-
-//return the total "
+//return the total energy
 float PointList::calcEnergy() {
-	float e = 0.0;
+	totalEnergy = 0.0;
 	for(int i = 0; i < this->points.size(); i++)
+	{
+		points[i].energy = 0.0;
 		for(int j = 0; j < this->points.size(); j++)
-			if(i != j) {
-				e += (points[i] - points[j]);
-			}
-	energy = e;
-	return e;
+			if(i != j)
+				points[i].energy += (points[i] - points[j]); // "-" is overloaded in Point to calculate force between 2 points.
+		totalEnergy += points[i].energy;
+	}
+	sort(points.begin(),points.end(),wayToSort);
+	return totalEnergy;
 }
 
 //print all the points
@@ -60,16 +62,13 @@ void PointList::print() {
 		points.at(i).print();
 }
 
+
 void PointList::shake() {
-	//float shakeProb = 0.1;
-	float shakeProb = randFloat(probThatWeWillShake/2.0,probThatWeWillShake*2);
 	for(int i = 0; i < this->points.size(); i++)
-		if(randFloat(0,1) < shakeProb)
-			this->points.at(i).move(randFloat(moveRangeFrom,moveRangeTo),randFloat(moveRangeFrom,moveRangeTo),randFloat(moveRangeFrom,moveRangeTo));
+		if(randFloat(0,this->points.size()*2.0) < 0.0+i+(points.size()*0.1)) //the higher the energy of the point, the more likely we will shake it.
+			this->points.at(i).move(randFloat(moveRangeFrom,moveRangeTo),randFloat(moveRangeFrom,moveRangeTo),randFloat(moveRangeFrom,moveRangeTo)); //move point a little bit
 	calcEnergy();
 }
-
-
 
 //gen a random number with specified range
 float PointList::randFloat(float M, float N)
@@ -77,11 +76,6 @@ float PointList::randFloat(float M, float N)
     return M + (rand() / ( RAND_MAX / (N-M) ) ) ;
 }
 
-void PointList::supershake() {
-	float shakeProb = randFloat(probThatWeWillShake/2.0,probThatWeWillShake*2);
-	for(int i = 0; i < this->points.size(); i++)
-		if(randFloat(0,1) < shakeProb)
-				this->points.at(i).move(randFloat(moveRangeFrom*2,moveRangeTo*2),randFloat(moveRangeFrom*2,moveRangeTo*2),randFloat(moveRangeFrom*2,moveRangeTo*2));
-	calcEnergy();
-
+bool PointList::wayToSort(Point l, Point r) {
+	return l.energy < l.energy;
 }

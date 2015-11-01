@@ -16,7 +16,8 @@ public:
 	float operator-(const Point other);
 	void print();
 	virtual ~Point();
-	float e;
+	float size;
+	float energy;
 	float x;
 	float y;
 	float z;

@@ -9,14 +9,15 @@
 #define POINTLIST_H_
 #include "Point.h"
 #include <vector>
-
+#define MOVERANGEFROM  -1.0
+#define MOVERANGETO 1.0
 class PointList {
 public:
 	//the list of energy,x,y,z coordinates
 	std::vector<Point> points;
 
 	//holds current energy
-	float energy;
+	float totalEnergy;
 
 	//constructor
 	PointList();
@@ -30,9 +31,6 @@ public:
 	//jitter some of the points around randomly
 	void shake();
 
-	//when we get stuck in a minima, fuck shit up
-	void supershake();
-
 	//do a trial, jitter things around, if its better then what we have, the we will MOST LIKELY accept it (but sometimes we just accept the bad shake too)
 	void trial();
 
@@ -42,10 +40,10 @@ public:
 	//decon
 	virtual ~PointList();
 private:
-	float probThatWeWillShake = 0.1;
-	float moveRangeFrom = -1.;
-	float moveRangeTo = 1.;
+	float moveRangeFrom;// = -1.;
+	float moveRangeTo; // = 1.;
 	float randFloat(float M, float N);
+	static bool wayToSort(Point l, Point r);
 };
 
 #endif /* POINTLIST_H_ */

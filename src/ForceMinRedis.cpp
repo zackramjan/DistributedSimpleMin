@@ -32,7 +32,7 @@ PointList readPointsFromFile(char *filename)
 
 int main(int argc, char ** argv) {
 	PointList system =  readPointsFromFile(argv[1]);
-	float energy = system.energy;
+	float energy = system.totalEnergy;
 	int badStreak = 0;
 	float badStreakMax = 10000.0;
 
@@ -41,26 +41,25 @@ int main(int argc, char ** argv) {
 		system.trial(); //do a trial
 
 		//count the number of consecutive times a trial fails to produce a better result
-		if (energy == system.energy)
+		if (energy == system.totalEnergy)
 			badStreak++;
 
 		//else we had a winning trial, it was better then our previous state.
 		else
 		{
-			cout << i << " e=" << system.energy <<endl;
+			cout << i << " e=" << system.totalEnergy <<endl;
 			badStreak = 0;
 		}
 
 		//if we hit the badStreakMax number of failures, shake things up, even if it means taking a worse result.
 		if(badStreak > badStreakMax)
 		{
-			system.supershake();
-			cout << "NO GAIN for " << badStreakMax  << "trials, taking suboptimal e=" << system.energy <<  endl;
+			system.shake();
+			cout << "NO GAIN for " << badStreakMax  << "trials, taking suboptimal e=" << system.totalEnergy <<  endl;
 			badStreak = 0;
 			badStreakMax = badStreakMax * 1.1; //increase the throttle
 		}
-		energy=system.energy;
+		energy=system.totalEnergy;
 	}
-
 	system.print();
 }
