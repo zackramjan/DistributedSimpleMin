@@ -49,7 +49,7 @@ float PointList::calcEnergy() {
 		points[i].energy = 0.0;
 		for(int j = 0; j < this->points.size(); j++)
 			if(i != j)
-				points[i].energy += (points[i] - points[j]); // "-" is overloaded in Point to calculate force between 2 points.
+				points[i].energy += (points[i] - points[j]); // "-" is overloaded in Point to calculate force between 2 points, see Points.cpp::operator-().
 		totalEnergy += points[i].energy;
 	}
 	sort(points.begin(),points.end(),wayToSort);
