@@ -35,7 +35,7 @@ float Point::operator -(const Point other) {
 
 //print this point
 void Point::print() {
-	cout << size << "\t" << x << "\t" << y << "\t" << z << "\t" << endl;
+	cout << size << "\t" << x << "\t" << y << "\t" << z << "\t" << energy << endl;
 }
 
 Point::~Point() {
