@@ -2,3 +2,5 @@
 /forceredis
 /Point.o
 /PointList.o
+/simplemin
+/DistributedSimpleMin_main.o
