@@ -11,6 +11,7 @@
 #include <iostream>
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
+#include <sstream>
 
 using namespace std;
 
@@ -78,4 +79,21 @@ float PointList::randFloat(float M, float N)
 
 bool PointList::wayToSort(Point l, Point r) {
 	return l.energy < l.energy;
+}
+
+std::string PointList::toString() {
+	std::ostringstream buff;
+	for(int i = 0; i < this->points.size(); i++)
+		buff << points.at(i).toString() << endl;
+	 return buff.str();
+
+}
+
+void PointList::fromString(std::string from) {
+	points.clear();
+	istringstream buff (from);
+	string line;
+	while(getline(buff,line))
+		this->add(Point(line));
+
 }

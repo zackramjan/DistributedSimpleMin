@@ -8,6 +8,9 @@
 #include "Point.h"
 #include <cmath>
 #include <iostream>
+#include <sstream>
+#include <string>
+
 using namespace std;
 
 //constructor from given coordinates
@@ -45,4 +48,20 @@ Point::~Point() {
 //move this point by the specified distance
 void Point::move(float i, float j, float k) {
 	set(x+i,y+j,z+k);
+}
+
+std::string Point::toString() {
+	 std::ostringstream buff;
+	 buff << size << "\t" << x << "\t" << y << "\t" << z << "\t" << energy;
+	 return buff.str();
+}
+
+void Point::fromString(std::string from) {
+	std::istringstream buff (from);
+	buff >> size >> x >> y >> z >> energy;
+
+}
+
+Point::Point(std::string s) {
+	fromString(s);
 }

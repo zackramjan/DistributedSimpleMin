@@ -10,10 +10,14 @@
 #include <vector>
 #include <array>
 #include <fstream>
+#include <ctime>
+#include <algorithm>
 #include "Point.h"
 #include "PointList.h"
-using namespace std;
 
+using namespace std;
+//#include "hazelcast/client/HazelcastAll.h"
+//using namespace hazelcast::client;
 
 
 
@@ -36,6 +40,21 @@ int main(int argc, char ** argv) {
 	int badStreak = 0;
 	float badStreakMax = 10000.0;
 	float badStreakThrottle = 1.0;
+
+//  test string i/o
+//	system.print();
+//	string s = system.toString();
+//	cout << s <<endl << system.totalEnergy << endl << endl;
+//
+//	replace( s.begin(), s.end(), '1', '7');
+//	system.fromString(s);
+//	system.print();
+//	s = system.toString();
+//	cout << s <<endl << system.totalEnergy << endl;
+//
+//	exit(0);
+
+
 
 	for (int i=1;i<10000000;i++)
 	{

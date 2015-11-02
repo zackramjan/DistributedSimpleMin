@@ -37,6 +37,12 @@ public:
 	//print the list
 	void print();
 
+	//return the state of this systen as a string
+	std::string toString();
+
+	//set the state of this system from the given string
+	void fromString(std::string from);
+
 	//decon
 	virtual ~PointList();
 private:
