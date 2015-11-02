@@ -1,8 +1,5 @@
  # Description: Makefile 
  #
- # Copyright (C) 2013 by Huy Q. Dinh (email: huydinh@usc.edu)
- #
- #
  # This program is free software: you can redistribute it and/or modify it under the terms of the
  # GNU General Public License as published by the Free Software Foundation, either version 3 of the
  # License, or any later version.
@@ -21,7 +18,7 @@ SOURCES = $(wildcard *.cpp)
 
 
 OBJECTS=$(SOURCES:.cpp=.o)
-EXECUTABLE=forceredis
+EXECUTABLE=simplemin
 
 all: 	$(SOURCES) $(EXECUTABLE) 
 $(EXECUTABLE): $(OBJECTS) 
