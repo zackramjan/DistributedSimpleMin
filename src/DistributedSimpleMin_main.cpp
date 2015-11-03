@@ -14,12 +14,7 @@
 #include <algorithm>
 #include "Point.h"
 #include "PointList.h"
-
 using namespace std;
-//#include "hazelcast/client/HazelcastAll.h"
-//using namespace hazelcast::client;
-
-
 
 PointList readPointsFromFile(char *filename)
 {
