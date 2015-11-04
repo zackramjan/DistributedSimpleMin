@@ -26,8 +26,9 @@ int main(int argc, char ** argv) {
 	PointList system;
 	system.fromFile(argv[1]);
 
-	//create the connection to a hazelcast server node
-	DistributedMap cluster(argv[2],stoi(argv[3],NULL));
+	//create the connection to a hazelcast server node.
+	//We want the Keys:Values to be String:String in this case
+	DistributedMap<string,string> cluster(argv[2],stoi(argv[3],NULL));
 
 	//assign this process a unique id to identify itself amongst the other processes working
 	long machineID = cluster.getUniqueID();
@@ -53,7 +54,17 @@ int main(int argc, char ** argv) {
 
 		//if we hit the badStreakMax number of failures, Then grab a new state from the cluster.
 		else if (badStreak > badStreakMax * badStreakThrottle) {
-
+			vector<string> keys = cluster.getKeys();
+			for(size_t i=0;i<keys.size();i++)
+			{
+				PointList t;
+				t.fromString(cluster.get(keys.at(i)));
+				if(t.totalEnergy < system.totalEnergy)
+				{
+					cout << "replacing state with current state e=" << system.totalEnergy << " with instance " << keys.at(i) << " e=" << t.totalEnergy << endl;
+					system.fromString(t.toString());
+				}
+			}
 		}
 		prevTotalEnergy = system.totalEnergy;
 	}
