@@ -45,10 +45,10 @@ PointList::~PointList() {}
 //return the total energy
 float PointList::calcEnergy() {
 	totalEnergy = 0.0;
-	for(int i = 0; i < this->points.size(); i++)
+	for(size_t i = 0; i < this->points.size(); i++)
 	{
 		points[i].energy = 0.0;
-		for(int j = 0; j < this->points.size(); j++)
+		for(size_t j = 0; j < this->points.size(); j++)
 			if(i != j)
 				points[i].energy += (points[i] - points[j]); // "-" is overloaded in Point to calculate force between 2 points, see Points.cpp::operator-().
 		totalEnergy += points[i].energy;
@@ -59,13 +59,13 @@ float PointList::calcEnergy() {
 
 //print all the points
 void PointList::print() {
-	for(int i = 0; i != this->points.size(); i++)
+	for(size_t i = 0; i != this->points.size(); i++)
 		points.at(i).print();
 }
 
 
 void PointList::shake() {
-	for(int i = 0; i < this->points.size(); i++)
+	for(size_t i = 0; i < this->points.size(); i++)
 		if(randFloat(0,this->points.size()*2.0) < 0.0+i+(points.size()*0.1)) //the higher the energy of the point, the more likely we will shake it.
 			this->points.at(i).move(randFloat(moveRangeFrom,moveRangeTo),randFloat(moveRangeFrom,moveRangeTo),randFloat(moveRangeFrom,moveRangeTo)); //move point a little bit
 	calcEnergy();
@@ -83,7 +83,7 @@ bool PointList::wayToSort(Point l, Point r) {
 
 std::string PointList::toString() {
 	std::ostringstream buff;
-	for(int i = 0; i < this->points.size(); i++)
+	for(size_t i = 0; i < this->points.size(); i++)
 		buff << points.at(i).toString() << endl;
 	 return buff.str();
 
