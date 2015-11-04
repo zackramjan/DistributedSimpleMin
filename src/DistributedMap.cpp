@@ -12,11 +12,10 @@
 using namespace hazelcast::client;
 
 DistributedMap::DistributedMap(std::string host, int port) {
-	  ClientConfig clientConfig;
-	  Address address( host, port );
-	  clientConfig.addAddress( address );
-	  hazelcastClient = new HazelcastClient( clientConfig );
-	  map = hazelcastClient->getMap<std::string,std::string>( "zmap" );
+	ClientConfig clientConfig;
+	Address address(host, port);
+	clientConfig.addAddress(address);
+	hazelcastClient = new HazelcastClient(clientConfig);
 
 }
 
@@ -26,9 +25,13 @@ DistributedMap::~DistributedMap() {
 }
 
 void DistributedMap::put(std::string key, std::string value) {
-	map.put(key,value );
+	IMap<std::string, std::string> map = hazelcastClient->getMap<std::string,
+			std::string>("myMap");
+	map.put(key, value);
 }
 
 std::string DistributedMap::get(std::string key) {
-	return map.get(key).get();
+	IMap<std::string, std::string> map = hazelcastClient->getMap<std::string,
+			std::string>("myMap");
+	return *map.get(key);
 }

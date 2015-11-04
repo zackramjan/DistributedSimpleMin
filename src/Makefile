@@ -12,7 +12,7 @@
  # not, see <http://www.gnu.org/licenses/>.
 
 CC=/usr/bin/g++
-CFLAGS=-c -Wall  -Wdeprecated-declarations -Wsign-compare
+CFLAGS=-c -Wall
 LDFLAGS=-rdynamic -Lhazelcast/lib -lHazelcastClient3.7-SNAPSHOT_64-linux64 -lpthread -lrt
 INC=-Ihazelcast/include
 SOURCES = $(wildcard *.cpp)
