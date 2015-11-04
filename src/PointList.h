@@ -43,6 +43,10 @@ public:
 	//set the state of this system from the given string
 	void fromString(std::string from);
 
+	//set the state of this system from the given file
+	void fromFile(std::string from);
+
+
 	//decon
 	virtual ~PointList();
 private:

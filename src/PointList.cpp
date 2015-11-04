@@ -81,6 +81,7 @@ bool PointList::wayToSort(Point l, Point r) {
 	return l.energy < l.energy;
 }
 
+//return this list as a string
 std::string PointList::toString() {
 	std::ostringstream buff;
 	for(size_t i = 0; i < this->points.size(); i++)
@@ -89,6 +90,7 @@ std::string PointList::toString() {
 
 }
 
+//create this list form the given string
 void PointList::fromString(std::string from) {
 	points.clear();
 	istringstream buff (from);
@@ -96,4 +98,14 @@ void PointList::fromString(std::string from) {
 	while(getline(buff,line))
 		this->add(Point(line));
 
+}
+
+//import this list from the given file
+void PointList::fromFile(std::string from) {
+	ifstream infile(from);
+	cout << "opening " << from << endl;
+	float e, x, y, z;
+	while (infile >> e >> x >> y >> z) {
+		this->add(Point(e, x, y, z));
+	}
 }

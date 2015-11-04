@@ -18,6 +18,10 @@ public:
 	HazelcastClient *hazelcastClient;
 	std::string get(std::string key);
 	void put(std::string key, std::string value);
+	std::string get(std::string mapname,std::string key);
+	void put(std::string mapname,std::string key, std::string value);
+	long getUniqueID();
+
 };
 
 #endif /* DISTRIBUTEDMAP_H_ */
