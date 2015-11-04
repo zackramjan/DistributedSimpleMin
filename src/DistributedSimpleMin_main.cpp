@@ -13,17 +13,26 @@
 #include <algorithm>
 #include "Point.h"
 #include "PointList.h"
+#include "DistributedMap.h"
 using namespace std;
 
 int main(int argc, char ** argv) {
 	if (argc < 4) {
-		cout << "usage simplemin file.csv hazelcast_server hazel_server_port" << endl << "ex: simplemin points.csv node022.hpc.vai.org 5701"
-				<< endl;
+		cout << "usage simplemin file.csv hazelcast_server hazel_server_port" << endl << "ex: simplemin points.csv node022.hpc.vai.org 5701" << endl;
 		exit(0);
 	}
 
+	//read in the system coords from file
 	PointList system;
 	system.fromFile(argv[1]);
+
+	//create the connection to a hazelcast server node
+	DistributedMap cluster(argv[2],stoi(argv[3],NULL));
+
+	//assign this process a unique id to identify itself amongst the other processes working
+	long machineID = cluster.getUniqueID();
+	cout << "unique instance ID for this worker: " << machineID <<endl;
+
 	float prevTotalEnergy = system.totalEnergy;
 	int badStreak = 0;
 	float badStreakMax = 10000.0;
@@ -39,14 +48,12 @@ int main(int argc, char ** argv) {
 		if (badStreak == 0) {
 			cout << i << " e=" << system.totalEnergy << endl;
 			badStreakThrottle = badStreakThrottle > 1.1 ? badStreakThrottle / 1.01 : 1.0;
+			cluster.put(to_string(machineID),system.toString()); //save this result to the cluster
 		}
 
-		//if we hit the badStreakMax number of failures, shake things up, even if it means taking a worse result.
+		//if we hit the badStreakMax number of failures, Then grab a new state from the cluster.
 		else if (badStreak > badStreakMax * badStreakThrottle) {
-			system.shake();
-			cout << "NO GAIN for " << badStreak << "trials, taking suboptimal e=" << system.totalEnergy << endl;
-			badStreakThrottle *= 1.1; //increase the throttle;
-			badStreak = 0;
+
 		}
 		prevTotalEnergy = system.totalEnergy;
 	}

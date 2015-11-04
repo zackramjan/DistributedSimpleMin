@@ -12,6 +12,7 @@
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
 #include <sstream>
+#include <fstream>
 
 using namespace std;
 
@@ -37,6 +38,12 @@ void PointList::trial() {
 	{
 		this->points = t.points;
 		this->totalEnergy = t.totalEnergy;
+	}
+	else if( randFloat(0.0,20000.0) < 1.0)
+	{
+		this->points = t.points;
+		this->totalEnergy = t.totalEnergy;
+		cout << "randomly taking suboptimal e=" << this->totalEnergy << endl;
 	}
 }
 
