@@ -8,7 +8,6 @@
 
 #include <iostream>
 #include <vector>
-#include <array>
 #include <fstream>
 #include <ctime>
 #include <algorithm>
