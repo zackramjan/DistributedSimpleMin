@@ -13,7 +13,19 @@
 
 CC=/usr/bin/g++
 CFLAGS=-c -Wall
-LDFLAGS=-rdynamic -Lhazelcast/lib -lHazelcastClient3.7-SNAPSHOT_64-linux64 -lpthread -lrt
+
+UNAME := $(shell uname)
+
+#LINUX:
+ifeq ($(UNAME), Linux)
+LDFLAGS=-rdynamic -Lhazelcast/lib -lHazelcastClient3.7-SNAPSHOT_64-linux64 -lpthread  -lrt
+endif
+
+#MAC OSX:
+ifeq ($(UNAME), Darwin)
+LDFLAGS=-Lhazelcast/lib -lHazelcastClient3.7-SNAPSHOT_64-mac -lpthread
+endif
+
 INC=-Ihazelcast/include
 SOURCES = $(wildcard *.cpp)
 
@@ -26,7 +38,7 @@ $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(INC) $(OBJECTS) $(LDFLAGS) -o $@
 
 .cpp.o:
-	$(CC) $(INC) $(CFLAGS) $(LDFLAGS) $< -o $@
+	$(CC) $(INC) $(CFLAGS)  $< -o $@
 
 clean:
 	rm *.o $(EXECUTABLE)

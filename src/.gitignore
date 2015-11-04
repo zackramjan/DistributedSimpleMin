@@ -4,3 +4,4 @@
 /PointList.o
 /simplemin
 /DistributedSimpleMin_main.o
+/DistributedMap.o
