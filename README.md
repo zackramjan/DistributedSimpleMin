@@ -1,1 +1,3 @@
-# ForceMinRedis
+# DistributedForceMin
+
+with hazelcast client
