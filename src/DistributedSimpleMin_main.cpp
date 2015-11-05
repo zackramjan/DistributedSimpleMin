@@ -56,13 +56,13 @@ int main(int argc, char ** argv) {
 		//if we hit the badStreakMax number of failures, Then grab a new state from the cluster.
 		else if (badStreak > badStreakMax * badStreakThrottle) {
 			vector<string> keys = cluster.getKeys(); //get a list of all the workerIDs from the cluster
-			for(size_t i=0;i<keys.size();i++) //for each workerID in the cluster
+			for(size_t j=0;j<keys.size();j++) //for each workerID in the cluster
 			{
 				PointList t;
-				t.fromString(cluster.get(keys.at(i))); //create a new system from the workerID's state
+				t.fromString(cluster.get(keys.at(j))); //create a new system from the workerID's state
 				if(t.totalEnergy < system.totalEnergy) //is is better then what I currently have?
 				{
-					cout << i << "replacing this state e=" << system.totalEnergy << " with workerID=" << keys.at(i) << "'s state e=" << t.totalEnergy << endl;
+					cout << i << "replacing this state e=" << system.totalEnergy << " with workerID=" << keys.at(j) << "'s state e=" << t.totalEnergy << endl;
 					system.fromString(t.toString());
 				}
 			}
