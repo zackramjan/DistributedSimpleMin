@@ -2,3 +2,7 @@
 /forceredis
 /Point.o
 /PointList.o
+/simplemin
+/DistributedSimpleMin_main.o
+/DistributedMap.o
+/points_test.csv
