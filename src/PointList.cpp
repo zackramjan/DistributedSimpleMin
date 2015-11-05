@@ -49,7 +49,7 @@ void PointList::trial() {
 	{
 		this->points = t.points;
 		this->totalEnergy = t.totalEnergy;
-		cout << "randomly taking suboptimal e=" << this->totalEnergy << endl;
+		cout << "randomly accepting suboptimal e=" << this->totalEnergy << endl;
 	}
 }
 

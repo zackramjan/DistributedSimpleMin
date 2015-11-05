@@ -55,7 +55,6 @@ int main(int argc, char ** argv) {
 
 		//if we hit the badStreakMax number of failures, Then grab a new state from the cluster.
 		else if (badStreak > badStreakMax * badStreakThrottle) {
-
 			vector<string> keys = cluster.getKeys();
 			for(size_t i=0;i<keys.size();i++)
 			{
@@ -63,10 +62,11 @@ int main(int argc, char ** argv) {
 				t.fromString(cluster.get(keys.at(i)));
 				if(t.totalEnergy < system.totalEnergy)
 				{
-					cout << "replacing this state e=" << system.totalEnergy << " with workerID= " << keys.at(i) << "'s state e=" << t.totalEnergy << endl;
+					cout << "replacing this state e=" << system.totalEnergy << " with workerID=" << keys.at(i) << "'s state e=" << t.totalEnergy << endl;
 					system.fromString(t.toString());
 				}
 			}
+			badStreak=0;
 		}
 		prevTotalEnergy = system.totalEnergy;
 	}
