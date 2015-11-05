@@ -15,7 +15,7 @@
  # not, see <http://www.gnu.org/licenses/>.
 
 CC=g++
-CFLAGS=-c -Ofast -Wall 
+CFLAGS=-c -O3 -Wall 
 LDFLAGS=
 SOURCES = $(wildcard *.cpp)
 
