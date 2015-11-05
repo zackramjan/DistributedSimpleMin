@@ -28,6 +28,7 @@ PointList::PointList() {
 	std::random_device rd;
 	engine = new std::mt19937(rd());
 	randz = new std::uniform_real_distribution<float>(0.0, 1.0);
+	randomAcceptSubOptimal = randFloat(10000.0,100000.0);
 }
 
 //add a point to the list
@@ -45,7 +46,7 @@ void PointList::trial() {
 		this->points = t.points;
 		this->totalEnergy = t.totalEnergy;
 	}
-	else if( randFloat(0.0,100000.0) < 1.0)
+	else if( randFloat(0.0,randomAcceptSubOptimal) < 1.0)
 	{
 		this->points = t.points;
 		this->totalEnergy = t.totalEnergy;

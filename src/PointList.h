@@ -49,13 +49,17 @@ public:
 	//set the state of this system from the given file
 	void fromFile(std::string from);
 
+	//generate a random flout between M and N
+	float randFloat(float M, float N);
+
 
 	//decon
 	virtual ~PointList();
 private:
 	float moveRangeFrom;// = -1.;
 	float moveRangeTo; // = 1.;
-	float randFloat(float M, float N);
+	float randomAcceptSubOptimal;
+
 	static bool wayToSort(Point l, Point r);
 };
 
