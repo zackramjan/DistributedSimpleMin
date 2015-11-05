@@ -9,6 +9,7 @@
 #define POINTLIST_H_
 #include "Point.h"
 #include <vector>
+#include <random>
 #define MOVERANGEFROM  -1.0
 #define MOVERANGETO 1.0
 class PointList {
@@ -18,6 +19,8 @@ public:
 
 	//holds current energy
 	float totalEnergy;
+	std::uniform_real_distribution<float> *randz;
+	std::mt19937 *engine;
 
 	//constructor
 	PointList();

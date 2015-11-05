@@ -41,7 +41,7 @@ public:
 
 	//if you dont get from specified a bucket, we assume you want the default bucket hardcoded here
 	VALZ get(KEYZ key) {
-		return this->get("zacks,key");
+		return this->get("zacks",key);
 	}
 
 	//store a value with the particular key in the given bucket.

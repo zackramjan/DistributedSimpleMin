@@ -13,15 +13,21 @@
 #include <time.h>       /* time */
 #include <sstream>
 #include <fstream>
+#include <random>
 
 using namespace std;
 
 PointList::PointList() {
+
 	this->points.clear();
 	totalEnergy = 0.0;
 	srand (time(NULL));
 	moveRangeFrom = MOVERANGEFROM;
 	moveRangeTo = MOVERANGETO;
+	// Use Mersenne twister engine to generate pseudo-random numbers.
+	std::random_device rd;
+	engine = new std::mt19937(rd());
+	randz = new std::uniform_real_distribution<float>(0.0, 1.0);
 }
 
 //add a point to the list
@@ -39,7 +45,7 @@ void PointList::trial() {
 		this->points = t.points;
 		this->totalEnergy = t.totalEnergy;
 	}
-	else if( randFloat(0.0,20000.0) < 1.0)
+	else if( randFloat(0.0,100000.0) < 1.0)
 	{
 		this->points = t.points;
 		this->totalEnergy = t.totalEnergy;
@@ -47,7 +53,10 @@ void PointList::trial() {
 	}
 }
 
-PointList::~PointList() {}
+PointList::~PointList() {
+	delete randz;
+	delete engine;
+}
 
 //return the total energy
 float PointList::calcEnergy() {
@@ -81,7 +90,8 @@ void PointList::shake() {
 //gen a random number with specified range
 float PointList::randFloat(float M, float N)
 {
-    return M + (rand() / ( RAND_MAX / (N-M) ) ) ;
+	float f = (*randz)(*engine);
+	return M + (f / ( 1.0 / (N-M) ) ) ;
 }
 
 bool PointList::wayToSort(Point l, Point r) {

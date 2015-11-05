@@ -12,7 +12,7 @@
  # not, see <http://www.gnu.org/licenses/>.
 
 CC=/usr/bin/g++
-CFLAGS=-c -Wall -O3
+CFLAGS=-c -Wall -O3 -Wno-deprecated -std=c++11
 
 UNAME := $(shell uname)
 
