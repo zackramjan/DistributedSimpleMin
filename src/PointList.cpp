@@ -114,8 +114,8 @@ void PointList::fromString(std::string from) {
 	istringstream buff (from);
 	string line;
 	while(getline(buff,line))
-		this->add(Point(line));
-
+		this->addNoRecalc(Point(line));
+	calcEnergy();
 }
 
 //import this list from the given file
@@ -124,6 +124,11 @@ void PointList::fromFile(std::string from) {
 	cout << "opening " << from << endl;
 	float e, x, y, z;
 	while (infile >> e >> x >> y >> z) {
-		this->add(Point(e, x, y, z));
+		this->addNoRecalc(Point(e, x, y, z));
 	}
+
+}
+
+void PointList::addNoRecalc(Point p) {
+	this->points.push_back(p);
 }

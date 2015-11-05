@@ -59,6 +59,9 @@ private:
 	float moveRangeFrom;// = -1.;
 	float moveRangeTo; // = 1.;
 	float randomAcceptSubOptimal;
+	//add a new point to the list of points without updating energy calc
+	void addNoRecalc(Point p);
+
 
 	static bool wayToSort(Point l, Point r);
 };

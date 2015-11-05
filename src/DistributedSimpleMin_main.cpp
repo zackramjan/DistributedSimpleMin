@@ -40,7 +40,7 @@ int main(int argc, char ** argv) {
 	float badStreakMax = system.randFloat(5000.0,20000.0); //how many failed trials I accept before taking another workers state
 
 	for (int i = 1; i < 1000000; i++) {
-		if( i % 10000 == 0)
+		if( i % 1000 == 0)
 			cout << i << " trials completed" << endl;
 		system.trial(); //do a trial
 
@@ -55,17 +55,21 @@ int main(int argc, char ** argv) {
 
 		//if we hit the badStreakMax number of failures, Then grab a new state from the cluster.
 		else if (badStreak > badStreakMax) {
+			cout << "checking ";
 			vector<string> keys = cluster.getKeys(); //get a list of all the workerIDs from the cluster
 			for(size_t j=0;j<keys.size();j++) //for each workerID in the cluster
 			{
+				cout << keys.at(j) << " ";
 				PointList t;
 				t.fromString(cluster.get(keys.at(j))); //create a new system from the workerID's state
 				if(t.totalEnergy < system.totalEnergy) //is is better then what I currently have?
 				{
-					cout << i << " replacing this state e=" << system.totalEnergy << " with workerID=" << keys.at(j) << "'s state e=" << t.totalEnergy << endl;
+					cout << i << " replacing this state e=" << system.totalEnergy << " with workerID=" << keys.at(j) << "'s state e=" << t.totalEnergy << " ...";
 					system.fromString(t.toString());
+					cout << "done" << endl;
 				}
 			}
+			cout << endl;
 			badStreak=0; //reset our counter
 		}
 		prevTotalEnergy = system.totalEnergy;
