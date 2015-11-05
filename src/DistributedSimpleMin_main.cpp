@@ -62,7 +62,7 @@ int main(int argc, char ** argv) {
 				t.fromString(cluster.get(keys.at(j))); //create a new system from the workerID's state
 				if(t.totalEnergy < system.totalEnergy) //is is better then what I currently have?
 				{
-					cout << i << "replacing this state e=" << system.totalEnergy << " with workerID=" << keys.at(j) << "'s state e=" << t.totalEnergy << endl;
+					cout << i << " replacing this state e=" << system.totalEnergy << " with workerID=" << keys.at(j) << "'s state e=" << t.totalEnergy << endl;
 					system.fromString(t.toString());
 				}
 			}
